@@ -34,10 +34,7 @@ public class TestAuthenticationController {
                 assertThrows(InvalidUserException.class, () -> {
                         new AuthenticationController().register(user);
                 });
-
-
         }
-
 
 
 

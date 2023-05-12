@@ -2,11 +2,30 @@ package com.retreat.copilot.entity;
 
 public class Article {
     // Create slug, title, description, body, tagList, createdAt, updatedAt, favorited, favoritesCount, author fields for Article with constructor, getters and setters
+
     private String slug;
     private String title;
     private String description;
     private String body;
     private String[] tagList;
+    private String favorited;
+    private String createdAt;
+    private String updatedAt;
+    private int favoritesCount;
+    private Profile author;
+
+    public Article(String slug, String title, String description, String body, String[] tagList, String createdAt,String updatedAt,String favorited,int favoritesCount,Profile author){
+        this.slug = slug;
+        this.title = title;
+        this.description = description;
+        this.body = body;
+        this.tagList = tagList;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.favorited = favorited;
+        this.favoritesCount = favoritesCount;
+        this.author = author;
+    }
 
     public String getSlug() {
         return slug;
@@ -40,6 +59,15 @@ public class Article {
         this.body = body;
     }
 
+    // getter and setter for favorited
+    public String getFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(String favorited) {
+        this.favorited = favorited;
+    }
+
     public String[] getTagList() {
         return tagList;
     }
@@ -64,14 +92,6 @@ public class Article {
         this.updatedAt = updatedAt;
     }
 
-    public boolean isFavorited() {
-        return favorited;
-    }
-
-    public void setFavorited(boolean favorited) {
-        this.favorited = favorited;
-    }
-
     public int getFavoritesCount() {
         return favoritesCount;
     }
@@ -85,28 +105,6 @@ public class Article {
     }
 
     public void setAuthor(Profile author) {
-        this.author = author;
-    }
-
-    private String createdAt;
-    private String updatedAt;
-    private boolean favorited;
-    private int favoritesCount;
-    private Profile author;
-
-    public Article() {
-    }
-
-    public Article(String slug, String title, String description, String body, String[] tagList, String createdAt,String updatedAt,boolean favorited,int favoritesCount,Profile author){
-        this.slug = slug;
-        this.title = title;
-        this.description = description;
-        this.body = body;
-        this.tagList = tagList;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.favorited = favorited;
-        this.favoritesCount = favoritesCount;
         this.author = author;
     }
 

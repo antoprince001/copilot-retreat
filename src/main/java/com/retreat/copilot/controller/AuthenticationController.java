@@ -7,6 +7,7 @@ import com.retreat.copilot.exception.InvalidUserException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @RestController
 @CrossOrigin
@@ -86,12 +87,12 @@ public class AuthenticationController {
             }
         }
         //If username does not match, return null
-        throw new InvalidUserException("User not found");;
+        throw new InvalidUserException("User not found");
     }
 
 //    //Create a POST mapping /api/profiles/:username/follow to update following  by matching them in a for each of profiles arraylist
 //    @PostMapping("api/profiles/{username}/follow")
-//    public Profile follow(@PathVariable("username") String username, @RequestBody Profile profile) throws InvalidUserException {
+//    public Profile follow(@PathVariable("username") String username, @RequestBody Profile) throws InvalidUserException {
 //        //For each loop of arraylist of profiles with conditon to check username matches
 //        for(Profile p : profiles) {
 //            if(p.getUsername().equals(username)) {
@@ -105,12 +106,56 @@ public class AuthenticationController {
 //    }
 
     //Create GET /api/articles to get all the articles
+//    @GetMapping("api/articles")
+//    public ArrayList<Article> getArticles() {
+//        return articles;
+//    }
+
+    // Create a GET request /api/articles that returns most recent articles globally by default, provide tag, author or favorited query parameter to filter results
     @GetMapping("api/articles")
-    public ArrayList<Article> getArticles() {
+public ArrayList<Article> getArticles(@RequestParam(value = "tag", required = false) String tag,
+                                          @RequestParam(value = "author", required = false) String author,
+                                          @RequestParam(value = "favorited", required = false) String favorited,
+                                          @RequestParam(value = "limit", required = false) Integer limit,
+                                            @RequestParam(value = "offset", required = false) Integer offset
+                                      ) {
+        //If tag is not null or author is not null or favorited is not null or limit is not null or offset is not null, filter the articles by tag, author favorited, limit, offset
+        if(tag != null || author != null || favorited != null || limit != null || offset != null) {
+            ArrayList<Article> filteredArticles = new ArrayList<>();
+            for(Article a : articles) {
+                if(tag != null) {
+                    if(Arrays.stream(a.getTagList()).toList().contains(tag)) {
+                        filteredArticles.add(a);
+                    }
+                }
+                if(author != null) {
+                    if(a.getAuthor().equals(author)) {
+                        filteredArticles.add(a);
+                    }
+                }
+                //if favorited is not null, filter the articles by favorited and add them to the filteredArticles arraylist
+                if(favorited != null) {
+                    if(a.getFavorited().equals(favorited)) {
+                        filteredArticles.add(a);
+                    }
+                }
+
+                if(limit != null) {
+                    if(filteredArticles.size() > limit) {
+                        filteredArticles.subList(limit, filteredArticles.size()).clear();
+                    }
+                }
+                if(offset != null) {
+                    if(filteredArticles.size() > offset) {
+                        filteredArticles.subList(0, offset).clear();
+                    }
+                }
+            }
+            return filteredArticles;
+        }
+
+        //If none of the above conditions are met, return all the articles
         return articles;
     }
-
-
-
 
 }
