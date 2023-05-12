@@ -158,8 +158,4 @@ public ArrayList<Article> getArticles(@RequestParam(value = "tag", required = fa
         return articles;
     }
 
-
-
-
-
 }
