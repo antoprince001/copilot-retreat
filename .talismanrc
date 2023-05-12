@@ -1,0 +1,6 @@
+fileignoreconfig:
+- filename: src/main/java/com/retreat/copilot/entity/User.java
+  checksum: e13bb8095b3ec626f743ae67702d679a03c4a46aa70df86612591a9d5392af0a
+- filename: src/main/java/com/retreat/copilot/controller/AuthenticationController.java
+  checksum: 38d9d3b8ca9699626ef19fff7ea4763e9992530cb769274919f7567af5a7b356
+version: ""
